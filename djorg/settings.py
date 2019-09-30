@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     # dir notes
     'notes',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -130,10 +131,18 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# if needed elsewhere
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
+
 # setup permissions
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-    ]
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    )
 }
 
